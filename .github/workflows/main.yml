@@ -1,0 +1,19 @@
+on:
+  workflow_dispatch:
+#  push:
+#    branches:
+#    - main
+jobs:
+  update:
+    name: update and deploy
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup ASP.Net Core
+        uses: xt0rted/setup-dotnet@v1.5.0
+        with:
+          dotnet-version: 8.0.8
+      - name: Publish Project
+        run: dotnet publish -r linux-x64 -o bin/Publish -c Release -v d --sc true 
+      - name: Update image into Docker Hub
+      - name: Add release into GitHub
